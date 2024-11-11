@@ -1,7 +1,7 @@
 {
   "name": "solidjs-vite-tailwind-vercel",
   "version": "1.0.0",
-  "description": "تطبيق خدمات إمكانية الوصول للمكفوفين مع SolidJS و Vite و Tailwind CSS",
+  "description": "تطبيق خدمات Blind Accessibility مع SolidJS و Vite و Tailwind CSS",
   "type": "module",
   "scripts": {
     "dev": "vite",
