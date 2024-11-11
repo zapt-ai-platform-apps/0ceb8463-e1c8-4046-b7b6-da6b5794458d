@@ -1,5 +1,7 @@
 import * as Sentry from "@sentry/node";
 import { initializeZapt } from '@zapt/zapt-js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 Sentry.init({
   dsn: process.env.VITE_PUBLIC_SENTRY_DSN,

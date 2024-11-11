@@ -25,7 +25,7 @@ function App() {
   onMount(checkUserSignedIn);
 
   createEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((_, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
       if (session?.user) {
         setUser(session.user);
         setCurrentPage('homePage');
@@ -36,7 +36,7 @@ function App() {
     });
 
     return () => {
-      authListener.unsubscribe();
+      subscription.unsubscribe();
     };
   });
 
@@ -151,11 +151,11 @@ function App() {
   };
 
   return (
-    <div dir="rtl" class="h-full bg-gradient-to-br from-purple-100 to-blue-100 p-4 text-gray-800">
+    <div dir="rtl" class="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 p-4 text-gray-800">
       <Show
         when={currentPage() === 'homePage'}
         fallback={
-          <div class="flex items-center justify-center h-full">
+          <div class="flex items-center justify-center min-h-screen">
             <div class="w-full max-w-md p-8 bg-white rounded-xl shadow-lg">
               <h2 class="text-3xl font-bold mb-6 text-center text-purple-600">تسجيل الدخول مع ZAPT</h2>
               <a
