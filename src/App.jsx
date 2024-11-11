@@ -25,7 +25,7 @@ function App() {
   onMount(checkUserSignedIn);
 
   createEffect(() => {
-    const authListener = supabase.auth.onAuthStateChange((_, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((_, session) => {
       if (session?.user) {
         setUser(session.user);
         setCurrentPage('homePage');
@@ -36,7 +36,7 @@ function App() {
     });
 
     return () => {
-      authListener.data.unsubscribe();
+      authListener.unsubscribe();
     };
   });
 
@@ -64,6 +64,7 @@ function App() {
   const saveJoke = async (e) => {
     e.preventDefault();
     const { data: { session } } = await supabase.auth.getSession();
+    setLoading(true);
     try {
       const response = await fetch('/api/saveJoke', {
         method: 'POST',
@@ -81,6 +82,8 @@ function App() {
       }
     } catch (error) {
       console.error('Error saving joke:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -148,11 +151,11 @@ function App() {
   };
 
   return (
-    <div dir="rtl" class="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 p-4">
+    <div dir="rtl" class="h-full bg-gradient-to-br from-purple-100 to-blue-100 p-4 text-gray-800">
       <Show
         when={currentPage() === 'homePage'}
         fallback={
-          <div class="flex items-center justify-center min-h-screen">
+          <div class="flex items-center justify-center h-full">
             <div class="w-full max-w-md p-8 bg-white rounded-xl shadow-lg">
               <h2 class="text-3xl font-bold mb-6 text-center text-purple-600">تسجيل الدخول مع ZAPT</h2>
               <a
@@ -213,6 +216,7 @@ function App() {
                   <button
                     type="submit"
                     class="cursor-pointer flex-1 px-6 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition duration-300 ease-in-out transform hover:scale-105"
+                    disabled={loading()}
                   >
                     حفظ النكتة
                   </button>
