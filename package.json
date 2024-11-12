@@ -1,7 +1,7 @@
 {
-  "name": "solidjs-vite-tailwind-vercel",
+  "name": "services-app",
   "version": "1.0.0",
-  "description": "تطبيق خدمات إمكانية الوصول للمكفوفين مع SolidJS و Vite و Tailwind CSS",
+  "description": "SolidJS app for Services with Vite and Tailwind CSS",
   "type": "module",
   "scripts": {
     "dev": "vite",
