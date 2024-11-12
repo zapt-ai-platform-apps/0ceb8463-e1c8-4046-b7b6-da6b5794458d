@@ -23,20 +23,20 @@ function App() {
 
   onMount(() => {
     checkUserSignedIn();
+  });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
-      if (session?.user) {
-        setUser(session.user);
-        setCurrentPage('homePage');
-      } else {
-        setUser(null);
-        setCurrentPage('login');
-      }
-    });
+  const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
+    if (session?.user) {
+      setUser(session.user);
+      setCurrentPage('homePage');
+    } else {
+      setUser(null);
+      setCurrentPage('login');
+    }
+  });
 
-    onCleanup(() => {
-      subscription?.unsubscribe();
-    });
+  onCleanup(() => {
+    subscription.unsubscribe();
   });
 
   const handleSignOut = async () => {
@@ -50,7 +50,7 @@ function App() {
       <Show
         when={currentPage() === 'homePage'}
         fallback={
-          <div class="flex items-center justify-center h-full">
+          <div class="flex items-center justify-center min-h-screen">
             <div class="w-full max-w-md p-8 bg-white rounded-xl shadow-lg text-center">
               <h2 class="text-3xl font-bold mb-6 text-purple-600">تسجيل الدخول باستخدام ZAPT</h2>
               <a
