@@ -1,4 +1,4 @@
-import { For, createSignal } from 'solid-js';
+import { For, createSignal, Show } from 'solid-js';
 import { useNavigate } from '@solidjs/router';
 import { createEvent } from './supabaseClient';
 
@@ -15,7 +15,7 @@ function Packages() {
       name: 'الباقة المجانية',
       description: 'باقة مجانية محدودة وبها إعلانات وحقوق النشر',
       price: 'مجانية',
-      features: ['إعلانات', 'حقوق النشر', 'ميزات محدودة'],
+      features: ['إAdvertisements', 'حقوق النشر', 'ميزات محدودة'],
     },
     {
       id: 2,
@@ -46,11 +46,15 @@ function Packages() {
     e.preventDefault();
     setLoading(true);
     try {
-      await createEvent('order_request', {
-        name: formData().name,
-        email: formData().email,
-        packageId: formData().packageId,
+      const prompt = `عميل جديد يطلب الباقة رقم ${formData().packageId}. التفاصيل:
+      الاسم: ${formData().name}
+      البريد الإلكتروني: ${formData().email}`;
+
+      await createEvent('chatgpt_request', {
+        prompt,
+        response_type: 'text',
       });
+
       setConfirmationMessage('تم إرسال طلبك بنجاح! سنقوم بالتواصل معك قريبًا.');
       setShowForm(false);
       setFormData({ name: '', email: '', packageId: '' });
@@ -63,7 +67,7 @@ function Packages() {
   };
 
   return (
-    <div dir="rtl" class="h-full bg-gradient-to-br from-purple-100 to-blue-100 p-4 text-gray-800">
+    <div dir="rtl" class="min-h-screen h-full bg-gradient-to-br from-purple-100 to-blue-100 p-4 text-gray-800">
       <div class="flex flex-col items-center justify-center h-full">
         <div class="w-full max-w-4xl p-8 bg-white rounded-xl shadow-lg">
           <div class="flex justify-between items-center mb-6">
@@ -75,11 +79,11 @@ function Packages() {
             </button>
             <h2 class="text-3xl font-bold text-purple-600 text-center">الباقات المتاحة</h2>
           </div>
-          {confirmationMessage() && (
+          <Show when={confirmationMessage()}>
             <div class="mb-4 p-4 bg-green-100 text-green-800 rounded-lg">
               {confirmationMessage()}
             </div>
-          )}
+          </Show>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <For each={packages}>
               {(pkg) => (
@@ -101,7 +105,7 @@ function Packages() {
               )}
             </For>
           </div>
-          {showForm() && (
+          <Show when={showForm()}>
             <div class="mt-8 p-6 bg-gray-100 rounded-lg">
               <h3 class="text-xl font-bold mb-4">نموذج الطلب</h3>
               <form onSubmit={handleSubmit} class="space-y-4">
@@ -132,7 +136,7 @@ function Packages() {
                 </button>
               </form>
             </div>
-          )}
+          </Show>
         </div>
       </div>
     </div>

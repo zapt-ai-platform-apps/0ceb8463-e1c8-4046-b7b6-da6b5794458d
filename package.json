@@ -1,6 +1,6 @@
 {
   "name": "services-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SolidJS app for Services with Vite and Tailwind CSS",
   "type": "module",
   "scripts": {
@@ -16,7 +16,9 @@
     "@supabase/supabase-js": "^2.30.0",
     "@zapt/zapt-js": "^1.0.5",
     "solid-js": "^1.8.22",
-    "solid-markdown": "^2.0.13"
+    "solid-markdown": "^2.0.13",
+    "file-saver": "^2.0.5",
+    "docx": "^7.7.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
