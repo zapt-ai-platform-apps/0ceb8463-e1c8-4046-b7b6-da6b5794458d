@@ -1,7 +1,7 @@
 {
   "name": "solidjs-vite-tailwind-vercel",
   "version": "1.0.0",
-  "description": "تطبيق خدمات Blind Accessibility مع SolidJS و Vite و Tailwind CSS",
+  "description": "تطبيق خدمات إمكانية الوصول للمكفوفين مع SolidJS و Vite و Tailwind CSS",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "solid-js": "^1.8.22",
-    "@sentry/browser": "^8.35.0"
+    "@sentry/browser": "^8.35.0",
+    "@solidjs/router": "^0.8.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
