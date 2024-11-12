@@ -24,7 +24,7 @@ function App() {
   onMount(checkUserSignedIn);
 
   createEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((_, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
       if (session?.user) {
         setUser(session.user);
         setCurrentPage('homePage');
@@ -35,7 +35,7 @@ function App() {
     });
 
     return () => {
-      authListener.subscription.unsubscribe();
+      subscription.unsubscribe();
     };
   });
 
@@ -46,7 +46,7 @@ function App() {
   };
 
   return (
-    <div dir="rtl" class="min-h-screen h-full bg-gradient-to-br from-purple-100 to-blue-100 p-4 text-gray-800">
+    <div dir="rtl" class="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 p-4 text-gray-800">
       <Show
         when={currentPage() === 'homePage'}
         fallback={

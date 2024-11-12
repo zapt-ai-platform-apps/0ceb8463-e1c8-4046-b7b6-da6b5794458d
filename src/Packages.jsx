@@ -15,7 +15,7 @@ function Packages() {
       name: 'الباقة المجانية',
       description: 'باقة مجانية محدودة وبها إعلانات وحقوق النشر',
       price: 'مجانية',
-      features: ['إAdvertisements', 'حقوق النشر', 'ميزات محدودة'],
+      features: ['إعلانات', 'حقوق النشر', 'ميزات محدودة'],
     },
     {
       id: 2,
@@ -67,7 +67,7 @@ function Packages() {
   };
 
   return (
-    <div dir="rtl" class="min-h-screen h-full bg-gradient-to-br from-purple-100 to-blue-100 p-4 text-gray-800">
+    <div dir="rtl" class="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 p-4 text-gray-800">
       <div class="flex flex-col items-center justify-center h-full">
         <div class="w-full max-w-4xl p-8 bg-white rounded-xl shadow-lg">
           <div class="flex justify-between items-center mb-6">
