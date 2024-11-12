@@ -1,4 +1,5 @@
 import { createSignal } from 'solid-js';
+import { createEvent } from '../supabaseClient';
 import { useNavigate } from '@solidjs/router';
 
 function AIAppBuilder() {
@@ -16,16 +17,11 @@ function AIAppBuilder() {
     if (!appName() || !appDescription()) return;
     setLoading(true);
     try {
-      // Simulate an API call to create an app using AI
-      const result = await fetch('/api/createApp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name: appName(), description: appDescription() }),
+      const result = await createEvent('chatgpt_request', {
+        prompt: `قم بإنشاء تطبيق يسمى "${appName()}" بوصف "${appDescription()}". يرجى توفير رابط للتطبيق الذي تم إنشاؤه. قدم الرد بصيغة JSON بالهيكل التالي: { "appLink": "رابط التطبيق" }`,
+        response_type: 'json'
       });
-      const data = await result.json();
-      setGeneratedAppLink(data.appLink);
+      setGeneratedAppLink(result.appLink);
     } catch (error) {
       console.error('Error creating app:', error);
     } finally {

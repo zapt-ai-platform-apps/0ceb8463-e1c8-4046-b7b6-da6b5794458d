@@ -1,8 +1,8 @@
 import { render } from 'solid-js/web';
-import App from './App';
+import { Router } from '@solidjs/router';
+import AppRoutes from './routes';
 import './index.css';
 import * as Sentry from "@sentry/browser";
-import { Router } from '@solidjs/router';
 
 Sentry.init({
   dsn: import.meta.env.VITE_PUBLIC_SENTRY_DSN,
@@ -30,6 +30,6 @@ document.querySelector('head').appendChild(script);
 
 render(() => (
   <Router>
-    <App />
+    <AppRoutes />
   </Router>
 ), document.getElementById('root'));
