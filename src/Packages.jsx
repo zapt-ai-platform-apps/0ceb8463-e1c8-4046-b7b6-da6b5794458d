@@ -40,6 +40,7 @@ function Packages() {
   const handleOrder = (pkgId) => {
     setFormData({ ...formData(), packageId: pkgId });
     setShowForm(true);
+    setConfirmationMessage('');
   };
 
   const handleSubmit = async (e) => {
@@ -127,8 +128,8 @@ function Packages() {
                 />
                 <button
                   type="submit"
-                  class={`w-full px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer ${
-                    loading() ? 'opacity-50 cursor-not-allowed' : ''
+                  class={`w-full px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105 ${
+                    loading() ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
                   }`}
                   disabled={loading()}
                 >

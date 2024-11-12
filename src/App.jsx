@@ -1,5 +1,5 @@
 import { useNavigate } from '@solidjs/router';
-import { createSignal, onMount, createEffect, Show } from 'solid-js';
+import { createSignal, onMount, onCleanup, Show } from 'solid-js';
 import { supabase } from './supabaseClient';
 import { Auth } from '@supabase/auth-ui-solid';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
@@ -21,9 +21,9 @@ function App() {
     }
   };
 
-  onMount(checkUserSignedIn);
+  onMount(() => {
+    checkUserSignedIn();
 
-  createEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
       if (session?.user) {
         setUser(session.user);
@@ -34,9 +34,9 @@ function App() {
       }
     });
 
-    return () => {
-      subscription.unsubscribe();
-    };
+    onCleanup(() => {
+      subscription?.unsubscribe();
+    });
   });
 
   const handleSignOut = async () => {
@@ -68,7 +68,18 @@ function App() {
                 magicLink={true}
                 view="magic_link"
                 showLinks={false}
-                localization={{ variables: { sign_in: { email_label: 'البريد الإلكتروني' } } }}
+                localization={{
+                  variables: {
+                    sign_in: {
+                      email_label: 'البريد الإلكتروني',
+                      password_label: 'كلمة المرور',
+                      email_input_placeholder: 'أدخل بريدك الإلكتروني',
+                      password_input_placeholder: 'أدخل كلمة المرور',
+                      button_label: 'تسجيل الدخول',
+                      loading_button_label: 'جاري التحميل...',
+                    },
+                  },
+                }}
               />
             </div>
           </div>
